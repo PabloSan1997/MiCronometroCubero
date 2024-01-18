@@ -1,7 +1,26 @@
 import 'reflect-metadata';
+import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
+import { createApi } from './routes/main';
+import { variables } from './utilities/variablesEnv';
 import { AppDataSource } from './config/db';
 
 
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+app.use(morgan('dev'));
+
+createApi(app);
+
 AppDataSource.initialize()
-	.then(() => console.log('Conectado a la base de datos'))
+	.then(() => {
+		app.listen(variables.port, () => {
+			if (variables.mode_project === 'admin') {
+				console.log(`http://localhost:${variables.port}`);
+			}
+		});
+	})
 	.catch(error => console.error(error));

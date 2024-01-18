@@ -13,7 +13,7 @@ export class Usuario {
     @Column({ length: 100 })
     	nickname: string;
 
-    @Column({ length: 100 })
+    @Column({ length: 5000 })
     	password: string;
 
     @OneToMany(()=> Promedio, promedio => promedio.resoluciones)
