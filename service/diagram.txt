@@ -3,7 +3,16 @@ Table Usuario{
   username varchar(100)
   nickname varchar(100)
   password varchar(100)
-  idRes uuid 
+  idProb uuid
+}
+
+Table Promedio{
+  id_prob uuid [primary key]
+  avo5 decimal(33002,2)
+  media decimal(33002,2)
+  mejor decimal(33002,2)
+  peor decimal(33002,2)
+  idRes uuid
 }
 
 Table Resoluciones{
@@ -11,6 +20,8 @@ Table Resoluciones{
   algoritmo varchar(60)
   tiempo interger
   fecha Date
+  tipo varchar(5)
 }
 
-Ref: Usuario.idRes > Resoluciones.id_res
+Ref: Promedio.idRes < Resoluciones.id_res
+Ref: Usuario.idProb < Promedio.id_prob
