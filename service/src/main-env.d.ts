@@ -30,13 +30,12 @@ interface PromedioInterface extends AddPromedio {
 interface AddResolucion {
     algoritmo:string;
     tiempo:number;
-    fecha:string;
     tipo:string;
 }
 interface ResolucionesInterface extends AddResolucion{
     id_res:string;
+    fecha:string;
 }
 interface AddPromRes{
-    promedio:AddPromedio,
     resolucion:AddResolucion[]
 }
