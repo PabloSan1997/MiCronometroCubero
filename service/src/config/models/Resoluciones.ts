@@ -1,5 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Promedio } from './Promedios';
 
 @Entity()
@@ -13,12 +13,9 @@ export class Resoluciones {
     @Column('double precision')
     	tiempo: number;
 
-    @CreateDateColumn()
-    	fecha: string;
-
     @Column({length:5})
     	tipo: string;
 
-    @ManyToOne(()=>Promedio, promedio => promedio.resoluciones)
+    @ManyToOne(()=>Promedio, promedio => promedio.resoluciones, {onDelete:'CASCADE'})
     	promedio:Promedio;
 }

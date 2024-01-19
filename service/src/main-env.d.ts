@@ -25,6 +25,7 @@ interface AddPromedio {
 }
 interface PromedioInterface extends AddPromedio {
     id_prom: string;
+    fecha:string;
 }
 
 interface AddResolucion {
@@ -34,7 +35,6 @@ interface AddResolucion {
 }
 interface ResolucionesInterface extends AddResolucion{
     id_res:string;
-    fecha:string;
 }
 interface AddPromRes{
     resolucion:AddResolucion[]

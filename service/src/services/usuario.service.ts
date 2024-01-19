@@ -2,11 +2,14 @@ import { AppDataSource } from '../config/db';
 import { Usuario } from '../config/models/Usuario';
 import { hash, compare } from 'bcrypt';
 import { codificarToken, convertirToken } from '../utilities/jwt';
+import Boom from '@hapi/boom';
 
 
 const repositorio = AppDataSource.getRepository(Usuario);
 export class UsuarioService {
 	async addUser(newUser: AddUserInterface): Promise<Usuario> {
+		const ver = await repositorio.findOneBy({nickname:newUser.nickname});
+		if(ver) throw Boom.badRequest('Usuario repetido');
 		const contra = await hash(newUser.password, 8);
 		const createUser = repositorio.create({ ...newUser, password: contra });
 		await repositorio.save(createUser);

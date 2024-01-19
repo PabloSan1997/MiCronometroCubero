@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import { createApi } from './routes/main';
 import { variables } from './utilities/variablesEnv';
 import { AppDataSource } from './config/db';
+import { boomHandle } from './middleware/boomHandle';
 
 
 const app = express();
@@ -14,6 +15,9 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 createApi(app);
+
+app.use(boomHandle);
+
 
 AppDataSource.initialize()
 	.then(() => {
