@@ -8,7 +8,7 @@ import Boom from '@hapi/boom';
 const repositorio = AppDataSource.getRepository(Usuario);
 export class UsuarioService {
 	async addUser(newUser: AddUserInterface): Promise<Usuario> {
-		const ver = await repositorio.findOneBy({nickname:newUser.nickname});
+		const ver = await repositorio.findOneBy({username:newUser.username});
 		if(ver) throw Boom.badRequest('Usuario repetido');
 		const contra = await hash(newUser.password, 8);
 		const createUser = repositorio.create({ ...newUser, password: contra });
@@ -17,9 +17,9 @@ export class UsuarioService {
 	}
 	async loginUser(userLogin: LoginUserInterface) {
 		const usuario = await repositorio.findOneBy({ username: userLogin.username });
-		if (!usuario) throw 'No se encontro usuario';
+		if (!usuario) throw Boom.badRequest('No se encontro usuario');
 		const checar = await compare(userLogin.password, usuario.password);
-		if (!checar) throw 'Contraseña incorrecta';
+		if (!checar) throw Boom.badRequest('Contraseña incorrecta');
 		usuario.password = await hash(userLogin.password, 8);
 		await repositorio.update({id_user:usuario.id_user}, usuario);
 		const token = await convertirToken({id_user:usuario.id_user, nickname:usuario.nickname});
