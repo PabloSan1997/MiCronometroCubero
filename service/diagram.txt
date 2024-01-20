@@ -7,10 +7,11 @@ Table Usuario{
 
 Table Promedio{
   id_prob uuid [primary key]
-  avo5 decimal(33002,2)
-  media decimal(33002,2)
-  mejor decimal(33002,2)
-  peor decimal(33002,2)
+  avo5 double precision
+  media double precision
+  mejor double precision
+  peor double precision
+  fecha Date
   idUser uuid
 }
 
@@ -18,8 +19,7 @@ Table Resoluciones{
   id_res uuid [primary key]
   algoritmo varchar(60)
   tiempo interger
-  fecha Date
-  tipo varchar(5)
+  tipo double precision
   idProb uuid
 }
 
