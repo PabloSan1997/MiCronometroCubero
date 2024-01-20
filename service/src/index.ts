@@ -6,6 +6,7 @@ import { createApi } from './routes/main';
 import { variables } from './utilities/variablesEnv';
 import { AppDataSource } from './config/db';
 import { boomHandle } from './middleware/boomHandle';
+import { authkeyhand } from './middleware/autykeyhandle';
 
 
 const app = express();
@@ -13,6 +14,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(authkeyhand);
 
 createApi(app);
 
