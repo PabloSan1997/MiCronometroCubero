@@ -4,6 +4,7 @@ import { Cronometro } from './layouts/Cronometro';
 import { Solves } from './layouts/Solves';
 import { Redirec } from './components/Redirec';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const myRutes = {
     login:'/login',
     timer:'/timer',

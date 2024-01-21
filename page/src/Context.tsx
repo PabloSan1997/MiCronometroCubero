@@ -9,11 +9,19 @@ export function ProviderContext({ children }: Children) {
     const [permisos, setPermisos] = React.useState<PermisoToken>({ permiso: false, token: '' });
     const [formularioLogin, setFormularioLogin] = React.useState<LoginInterface>({ username: '', password: '' });
     const [actualizar, setActualizar] = React.useState(false);
-
+    const [formMessage, setFormMessage] = React.useState('');
     React.useEffect(() => {
         loginApi(formularioLogin)
-            .then(data => setPermisos(data))
-            .catch(error => console.log(error));
+            .then(data => {
+                setPermisos(data);
+                setFormMessage('');
+            })
+            .catch(error =>{
+                const err = error as BoomErrorInterface;
+                if(!!formularioLogin.username && !!formularioLogin.password){
+                    setFormMessage(err.message);
+                }
+            });
     }, [actualizar]);
 
     const iniciar = (data: LoginInterface) => {
@@ -24,7 +32,8 @@ export function ProviderContext({ children }: Children) {
     return (
         <Contexto.Provider value={{
             permisos,
-            iniciar
+            iniciar,
+            formMessage
         }}>
             {children}
         </Contexto.Provider>

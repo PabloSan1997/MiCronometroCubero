@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { UseContexto } from "../Context";
 import { myRutes } from "../Rutas";
+import { Header } from "../components/Header";
 
 
 export function Solves(){
@@ -9,6 +10,7 @@ export function Solves(){
     
     return(
         <>
+        <Header mostrar={false}/>
         <p>solves</p>
         </>
     );

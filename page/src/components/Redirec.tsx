@@ -4,6 +4,6 @@ import { UseContexto } from '../Context';
 
 export function Redirec(){
     const {permisos} = UseContexto();
-    if(permisos.permiso) return <Navigate to={myRutes.solves}/>
+    if(permisos.permiso) return <Navigate to={myRutes.timer}/>
     return <Navigate to={myRutes.login}/>;
 }

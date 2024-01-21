@@ -6,7 +6,7 @@ import { myRutes } from "../Rutas";
 
 export function Login(){
     const {permisos} = UseContexto();
-    if(permisos.permiso) return <Navigate to={myRutes.solves}/>
+    if(permisos.permiso) return <Navigate to={myRutes.timer}/>
     return(
         <>
         <Formulario/>

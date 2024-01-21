@@ -7,7 +7,8 @@ type Children = {
 
 type Contexto = {
     permisos:{permiso:boolean, token:string},
-    iniciar(a:LoginInterface):void
+    iniciar(a:LoginInterface):void,
+    formMessage:string
 }
 
 interface ResolucionesRequest{
@@ -41,4 +42,10 @@ interface LoginInterface {
 interface PermisoToken{
     permiso: boolean;
     token:   string;
+}
+
+interface BoomErrorInterface {
+    statusCode: number;
+    error:      string;
+    message:    string;
 }
