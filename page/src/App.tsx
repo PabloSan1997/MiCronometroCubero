@@ -1,8 +1,11 @@
-
+import {HashRouter} from 'react-router-dom';
+import { Rutas } from './Rutas';
 
 function App() {
   return (
-   <p>prueba</p>
+   <HashRouter>
+    <Rutas/>
+   </HashRouter>
   )
 }
 
