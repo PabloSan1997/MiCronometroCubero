@@ -16,7 +16,7 @@ export function Header({ mostrar }: { mostrar: boolean }) {
         <header className="w-full bg-[#691a1a] flex flex-col">
             <h1
                 className=
-                "m-auto flex justify-center mt-3 w-72 text-3xl font-bold text-[#f1d2d2] border-2 border-[#421717] px-5 py-2 rounded-lg cursor-pointer hover:bg-[#421717]"
+                {`m-auto flex bg-red-900 justify-center mt-3 w-72 text-3xl font-bold text-[#f1d2d2] border-2 border-[#421717] px-5 py-2 rounded-lg ${mostrar && 'hover:bg-[#421717] cursor-pointer'}`}
                 onMouseOver={() => cambiar('Resetear')}
                 onMouseLeave={() => cambiar('Mi cronometro')}
             >{titulo}</h1>

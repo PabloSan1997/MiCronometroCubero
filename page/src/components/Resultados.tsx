@@ -11,8 +11,10 @@ const convertir = (tiempo: number) => {
 }
 
 export function Resultados({ avo5, media, mejor, peor, resoluciones, fecha, id_prom, setIdProm }: ResultadoElementInterface) {
-    const borrar = () =>{
-        setIdProm(id_prom);
+    const borrar = () => {
+        if (confirm('Seguro que desea borrar este resultado')) {
+            setIdProm(id_prom);
+        }
     }
     return (
         <div
@@ -20,9 +22,9 @@ export function Resultados({ avo5, media, mejor, peor, resoluciones, fecha, id_p
         >
             <div className="flex mb-2">
                 <h3 className="text-white">Fecha del solve: {convertirFecha(fecha)}</h3>
-                <button 
-                onClick={borrar}
-                className="ml-5 border-2 border-blue-800 px-4 text-blue-50 bg-blue-950 hover:bg-blue-800"
+                <button
+                    onClick={borrar}
+                    className="ml-5 border-2 border-blue-800 px-4 text-blue-50 bg-blue-950 hover:bg-blue-800"
                 >Quitar</button>
             </div>
             <div className="w-full flex">
@@ -79,7 +81,7 @@ function TiempoYAlgo({ algoritmo, tiempo, tipo }: ResolucionesInterface) {
         <tr className="border-b-[1px] border-b-red-500 text-red-50">
             <td className="p-2 border-r-[1px] border-r-red-500 text-red-50">{tipo}</td>
             <td className="p-2 border-r-[1px] border-r-red-500 text-red-50">{convertir(tiempo)}</td>
-            <td className="p-2">{algoritmo}</td>
+            <td className="p-2 text-left "><span className="ml-3 w-fit">{algoritmo}</span></td>
         </tr>
     );
 }
