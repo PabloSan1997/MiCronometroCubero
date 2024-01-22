@@ -6,32 +6,35 @@ type Children = {
 }
 
 type Contexto = {
-    permisos:{permiso:boolean, token:string},
-    iniciar(a:LoginInterface):void,
-    formMessage:string
+    permisos: { permiso: boolean, token: string },
+    iniciar(a: LoginInterface): void,
+    formMessage: string,
+    token: string | undefined,
+    cerrarSecion(): void,
+    borrar(id_prom:string):Promise<void>
 }
 
-interface ResolucionesRequest{
+interface ResolucionesRequest {
     algoritmo: string;
-    tiempo:    number;
-    tipo:      string;
+    tiempo: number;
+    tipo: string;
 }
 
 interface ResolucionesInterface {
-    id_res:    string;
+    id_res: string;
     algoritmo: string;
-    tiempo:    number;
-    tipo:      string;
+    tiempo: number;
+    tipo: string;
 }
 
-interface PromedioInterface{
+interface PromedioInterface {
     id_prom: string;
-    avo5:    number;
-    media:   number;
-    mejor:   number;
-    peor:    number;
-    fecha:   Date;
-    resoluciones:ResolucionesInterface[]
+    avo5: number;
+    media: number;
+    mejor: number;
+    peor: number;
+    fecha:string;
+    resoluciones: ResolucionesInterface[]
 }
 
 interface LoginInterface {
@@ -39,13 +42,18 @@ interface LoginInterface {
     password: string;
 }
 
-interface PermisoToken{
+interface PermisoToken {
     permiso: boolean;
-    token:   string;
+    token: string;
 }
 
 interface BoomErrorInterface {
     statusCode: number;
-    error:      string;
-    message:    string;
+    error: string;
+    message: string;
+}
+
+
+interface ResultadoElementInterface extends PromedioInterface{
+    setIdProm(a:string):void
 }

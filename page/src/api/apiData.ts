@@ -7,6 +7,12 @@ export const dataApi = {
         login:{
             allow:'whtzhB2uNPDN$Az',
             'Content-Type':"application/json"
+        },
+        getSolves:(authorization:string)=>{
+            return {
+                authorization,
+                allow:'whtzhB2uNPDN$Az'
+            }
         }
     }
 }

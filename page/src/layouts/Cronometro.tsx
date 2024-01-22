@@ -11,7 +11,7 @@ export function Cronometro(){
     return(
         <>
         <Header mostrar={true}/>
-        <Tiempo valor={4225}/>
+        <Tiempo valor={175598.31}/>
         </>
     );
 }
