@@ -7,7 +7,7 @@ export class Resoluciones {
     @PrimaryGeneratedColumn('uuid')
     	id_res: string;
 
-    @Column({ length: 60 })
+    @Column({ length: 70 })
     	algoritmo: string;
 
     @Column('double precision')
