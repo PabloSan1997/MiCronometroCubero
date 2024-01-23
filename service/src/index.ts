@@ -10,7 +10,7 @@ import { authkeyhand } from './middleware/autykeyhandle';
 
 
 const app = express();
-
+app.use('/', express.static('src/build'));
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
