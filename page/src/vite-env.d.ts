@@ -11,13 +11,24 @@ type Contexto = {
     formMessage: string,
     token: string | undefined,
     cerrarSecion(): void,
-    borrar(id_prom:string):Promise<void>
+    borrar(id_prom:string):Promise<void>,
+    revoltura:string,
+    revolver():void,
+    activar:boolean, 
+    setActivar(activar:boolean):void,
+    agregarResLocak(res:ResolucioneFormat):void,
+    resLocales:ResolucioneFormat[],
+    vaciarResLocal():void
 }
 
-interface ResolucionesRequest {
+interface ResolucioneFormat {
     algoritmo: string;
     tiempo: number;
     tipo: string;
+}
+
+interface ResolucionesRequest{
+    resolucion:ResolucioneFormat
 }
 
 interface ResolucionesInterface {

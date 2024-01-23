@@ -22,3 +22,4 @@ export function convertirFecha(fechaHoraISO: string): string {
     const resultado = dia + '/' + mes + '/' + año + ', ' + horas + ':' + minutos;
     return resultado;
 }
+

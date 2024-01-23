@@ -11,3 +11,9 @@ export function convertirMilisegundos(milisegundos: number) {
     centi: Number(ar.join(''))
   };
 }
+
+
+export const convertir = (tiempo: number) => {
+  const crono = convertirMilisegundos(tiempo);
+  return `${crono.minutos}:${crono.segundos}.${crono.centi}`;
+}
