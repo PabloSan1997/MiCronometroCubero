@@ -15,14 +15,14 @@ export function Cronometro() {
     const [agregar, setAgregar] = React.useState(false);
 
     React.useEffect(() => {
-        if (activar) {
+        if (activar && resLocales.length<5) {
             setTimeout(() => {
                 const actual = new Date();
                 const tim = actual.getTime() - horaInicial.getTime();
                 setConteo(tim);
             }, milisegundos);
-        } else if (!activar && agregar && resLocales.length<5) {
-            agregarResLocak({ algoritmo: revoltura, tiempo: conteo, tipo: '2x2' });
+        } else if (!activar && agregar && resLocales.length < 5) {
+            agregarResLocak({ algoritmo: revoltura, tiempo: conteo, tipo: '3x3' });
             setAgregar(false);
         }
     }, [conteo, activar]);
@@ -47,8 +47,8 @@ export function Cronometro() {
     }
 
     React.useEffect(() => {
-        window.addEventListener('keyup', empezar);
-        revolver();
+            window.addEventListener('keyup', empezar);
+            revolver();
     }, []);
 
     if (!permisos.permiso) return <Navigate to={myRutes.login} />

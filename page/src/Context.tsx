@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { loginApi } from "./api/loginApi";
-import {useCookies} from 'react-cookie';
+import { useCookies } from 'react-cookie';
 import { deleteData } from "./api/deleteData";
 import { generarCombinatoria } from "./utilities/generarCombinatoria";
+import { addSolve } from "./api/addSolve";
 
 const Contexto = React.createContext({});
 
@@ -16,44 +17,55 @@ export function ProviderContext({ children }: Children) {
     const [revoltura, setRevoltura] = React.useState('');
     const [activar, setActivar] = React.useState(false);
     const [resLocales, setResLocales] = React.useState<ResolucioneFormat[]>([]);
+    const [mandar, setMandar] = React.useState(false);
     React.useEffect(() => {
         loginApi(formularioLogin)
             .then(data => {
                 setPermisos(data);
                 setFormMessage('');
-                setCookie('data_user', data.token, {maxAge:5000});
+                setCookie('data_user', data.token, { maxAge: 5000 });
             })
-            .catch(error =>{
+            .catch(error => {
                 const err = error as BoomErrorInterface;
-                if(!!formularioLogin.username && !!formularioLogin.password){
+                if (!!formularioLogin.username && !!formularioLogin.password) {
                     setFormMessage(err.message);
                 }
             });
     }, [actualizar]);
-    
-    React.useEffect(()=>{
-        if(cookies.data_user){
-            setPermisos({token:cookies.data_user, permiso:true});
+
+    React.useEffect(() => {
+        if (mandar) {
+            addSolve(cookies.data_user, { resolucion: resLocales })
+                .then(() => {
+                    setResLocales([]);
+                    setMandar(false);
+                });
         }
-    },[]);
+    }, [mandar]);
+
+    React.useEffect(() => {
+        if (cookies.data_user) {
+            setPermisos({ token: cookies.data_user, permiso: true });
+        }
+    }, []);
     const iniciar = (data: LoginInterface) => {
         setFormularioLogin(data);
         setActualizar(!actualizar);
     }
-    const cerrarSecion=()=>{
-        setPermisos({token:'', permiso:false});
+    const cerrarSecion = () => {
+        setPermisos({ token: '', permiso: false });
         removeCookie('data_user');
     }
-    const borrar = async(id_prom:string) =>{
+    const borrar = async (id_prom: string) => {
         await deleteData(id_prom, cookies.data_user);
     }
-    const revolver = () =>{
+    const revolver = () => {
         setRevoltura(generarCombinatoria());
     }
-    const agregarResLocak=(res:ResolucioneFormat)=>{
+    const agregarResLocak = (res: ResolucioneFormat) => {
         setResLocales([...resLocales, res]);
     }
-    const vaciarResLocal=()=>{
+    const vaciarResLocal = () => {
         setResLocales([]);
     }
     return (
@@ -61,7 +73,7 @@ export function ProviderContext({ children }: Children) {
             permisos,
             iniciar,
             formMessage,
-            token:cookies.data_user,
+            token: cookies.data_user,
             cerrarSecion,
             borrar,
             revoltura,
@@ -70,7 +82,8 @@ export function ProviderContext({ children }: Children) {
             setActivar,
             agregarResLocak,
             resLocales,
-            vaciarResLocal
+            vaciarResLocal,
+            mandar: () => setMandar(!mandar)
         }}>
             {children}
         </Contexto.Provider>

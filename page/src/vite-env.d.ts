@@ -18,7 +18,8 @@ type Contexto = {
     setActivar(activar:boolean):void,
     agregarResLocak(res:ResolucioneFormat):void,
     resLocales:ResolucioneFormat[],
-    vaciarResLocal():void
+    vaciarResLocal():void,
+    mandar():void
 }
 
 interface ResolucioneFormat {
@@ -28,7 +29,7 @@ interface ResolucioneFormat {
 }
 
 interface ResolucionesRequest{
-    resolucion:ResolucioneFormat
+    resolucion:ResolucioneFormat[]
 }
 
 interface ResolucionesInterface {
