@@ -5,6 +5,8 @@ type Children = {
     children: JSX.Element | JSX.Element[]
 }
 
+type TiposLados = '2x2'|'3x3';
+
 type Contexto = {
     permisos: { permiso: boolean, token: string },
     iniciar(a: LoginInterface): void,
@@ -19,7 +21,9 @@ type Contexto = {
     agregarResLocak(res:ResolucioneFormat):void,
     resLocales:ResolucioneFormat[],
     vaciarResLocal():void,
-    mandar():void
+    mandar():void,
+    cambiarLados(lado:TiposLados):void,
+    tipoLados:TiposLados
 }
 
 interface ResolucioneFormat {

@@ -18,6 +18,7 @@ export function ProviderContext({ children }: Children) {
     const [activar, setActivar] = React.useState(false);
     const [resLocales, setResLocales] = React.useState<ResolucioneFormat[]>([]);
     const [mandar, setMandar] = React.useState(false);
+    const [tipoLados, setTipoLados] = React.useState<TiposLados>('3x3');
     React.useEffect(() => {
         loginApi(formularioLogin)
             .then(data => {
@@ -42,6 +43,13 @@ export function ProviderContext({ children }: Children) {
                 });
         }
     }, [mandar]);
+
+    const cambiarLados = (la: TiposLados) => {
+        if (!activar) {
+            setTipoLados(la);
+            setResLocales([]);
+        }
+    }
 
     React.useEffect(() => {
         if (cookies.data_user) {
@@ -83,7 +91,9 @@ export function ProviderContext({ children }: Children) {
             agregarResLocak,
             resLocales,
             vaciarResLocal,
-            mandar: () => setMandar(!mandar)
+            mandar: () => setMandar(!mandar),
+            cambiarLados,
+            tipoLados
         }}>
             {children}
         </Contexto.Provider>

@@ -6,6 +6,7 @@ import { Header } from "../components/Header";
 import React from "react";
 import { getSolves } from "../api/getSolves";
 import { Resultados } from "../components/Resultados";
+import { urlStorage } from "../storage/urlStorage";
 
 
 export function Solves() {
@@ -14,6 +15,7 @@ export function Solves() {
     const [actualizarPromedio, setActualizarPromedio] = React.useState(false);
     const [id_prom, setIdProm] = React.useState('');
     React.useEffect(() => {
+        urlStorage.setUrl(myRutes.solves);
         getSolves(permisos.token)
             .then(data => { setPromedios(data) })
             .catch(() => { setPromedios([]) });

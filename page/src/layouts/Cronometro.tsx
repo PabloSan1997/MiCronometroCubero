@@ -6,29 +6,33 @@ import { Header } from "../components/Header";
 import { Tiempo } from "../components/Tiempo";
 import React from "react";
 import { TablaLocal } from "../components/ResoluLocal";
+import { urlStorage } from "../storage/urlStorage";
 
 export function Cronometro() {
-    const { permisos, revolver, activar, setActivar, agregarResLocak, revoltura, resLocales } = UseContexto();
+    const { permisos, revolver, activar, setActivar, agregarResLocak, revoltura, resLocales, tipoLados } = UseContexto();
     const [conteo, setConteo] = React.useState(0);
     const [horaInicial, setHoraInicial] = React.useState<Date>(new Date());
     const milisegundos = 50;
     const [agregar, setAgregar] = React.useState(false);
 
     React.useEffect(() => {
-        if (activar && resLocales.length<5) {
+        if (activar && resLocales.length < 5) {
             setTimeout(() => {
                 const actual = new Date();
                 const tim = actual.getTime() - horaInicial.getTime();
                 setConteo(tim);
             }, milisegundos);
         } else if (!activar && agregar && resLocales.length < 5) {
-            agregarResLocak({ algoritmo: revoltura, tiempo: conteo, tipo: '3x3' });
+            agregarResLocak({ algoritmo: revoltura, tiempo: conteo, tipo: tipoLados });
             setAgregar(false);
         }
     }, [conteo, activar]);
 
+
+
     const empezar = (e: KeyboardEvent) => {
-        if (e.key == ' ') {
+        const url = window.location.href.split('/#')[1];
+        if (e.key == ' ' && url === myRutes.timer) {
             setHoraInicial(new Date());
             setActivar(true);
             window.removeEventListener('keyup', empezar);
@@ -45,10 +49,11 @@ export function Cronometro() {
         }, 800);
         window.removeEventListener('keypress', pausar);
     }
-
     React.useEffect(() => {
-            window.addEventListener('keyup', empezar);
-            revolver();
+        setActivar(false);
+        window.addEventListener('keyup', empezar);
+        revolver();
+        urlStorage.setUrl(myRutes.timer);
     }, []);
 
     if (!permisos.permiso) return <Navigate to={myRutes.login} />
