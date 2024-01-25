@@ -44,12 +44,6 @@ export function ProviderContext({ children }: Children) {
         }
     }, [mandar]);
 
-    const cambiarLados = (la: TiposLados) => {
-        if (!activar) {
-            setTipoLados(la);
-            setResLocales([]);
-        }
-    }
 
     React.useEffect(() => {
         if (cookies.data_user) {
@@ -67,14 +61,22 @@ export function ProviderContext({ children }: Children) {
     const borrar = async (id_prom: string) => {
         await deleteData(id_prom, cookies.data_user);
     }
-    const revolver = () => {
-        setRevoltura(generarCombinatoria());
+    const revolver = (lados:TiposLados=tipoLados) => {
+        setRevoltura(generarCombinatoria(lados));
     }
     const agregarResLocak = (res: ResolucioneFormat) => {
         setResLocales([...resLocales, res]);
     }
     const vaciarResLocal = () => {
         setResLocales([]);
+        revolver();
+    }
+    const cambiarLados = (la: TiposLados) => {
+        if (!activar) {
+            setTipoLados(la);
+            setResLocales([]);
+            revolver(la);
+        }
     }
     return (
         <Contexto.Provider value={{
