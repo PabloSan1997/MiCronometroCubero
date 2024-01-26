@@ -19,6 +19,7 @@ export function ProviderContext({ children }: Children) {
     const [resLocales, setResLocales] = React.useState<ResolucioneFormat[]>([]);
     const [mandar, setMandar] = React.useState(false);
     const [tipoLados, setTipoLados] = React.useState<TiposLados>('3x3');
+
     React.useEffect(() => {
         loginApi(formularioLogin)
             .then(data => {

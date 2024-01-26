@@ -1,21 +1,25 @@
-
 import { convertirFecha } from "../utilities/convertirFecha";
 import { convertir } from "../utilities/convertirMilis";
 import { TiempoYAlgo } from "./TiempoYAlgo";
 
-
 export function Resultados({ avo5, media, mejor, peor, resoluciones, fecha, id_prom, setIdProm }: ResultadoElementInterface) {
+    
     const borrar = () => {
         if (confirm('Seguro que desea borrar este resultado')) {
             setIdProm(id_prom);
+            
         }
     }
+    const tipo = resoluciones[0].tipo?resoluciones[0].tipo:'';
     return (
         <div
             className="w-[95%] m-auto p-2 mb-3"
         >
             <div className="flex mb-2">
-                <h3 className="text-white">Fecha del solve: {convertirFecha(fecha)}</h3>
+                <h3 className="text-white">Fecha del solve: {convertirFecha(fecha)} | <span
+                className="font-bold"
+                >Tipo: {tipo}</span></h3>
+                
                 <button
                     onClick={borrar}
                     className="ml-5 border-2 border-blue-800 px-4 text-blue-50 bg-blue-950 hover:bg-blue-800"
