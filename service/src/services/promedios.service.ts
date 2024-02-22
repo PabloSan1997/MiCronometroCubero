@@ -46,6 +46,32 @@ export class PromedioService {
 		});
 		return datos;
 	}
+	async leerPromediosGrafica(token: string) {
+		const usuario = await serviciosUsuario.buscarUsuario(token);
+		if (!usuario) throw Boom.badRequest('No tienes permiso');
+		const datos = await rePromedio.find({
+			where: { usuario: usuario },
+			relations: {
+				resoluciones: true
+			},
+			select: {
+				avo5: true,
+				fecha: true,
+				resoluciones: {
+					tipo: true
+				}
+			},
+			order: {
+				fecha: 'ASC'
+			}
+		});
+		const respuesta: ResultadosGrafica[] = datos.map(p => {
+			const { avo5, fecha, resoluciones } = p;
+			const tipo = resoluciones[0].tipo;
+			return { avo5, fecha, tipo };
+		});
+		return respuesta;
+	}
 	async leerUltimoPromedio(token: string) {
 		const usuario = await serviciosUsuario.buscarUsuario(token);
 		if (!usuario) throw Boom.badRequest('No tienes permiso');
@@ -63,12 +89,12 @@ export class PromedioService {
 	async eliminarPromedio(token: string, id_prom: string) {
 		const datos = await this.leerPromedios(token);
 		const buscar = datos.find(p => p.id_prom === id_prom);
-		if(buscar){
+		if (buscar) {
 			const resoluciones = buscar.resoluciones;
-			await Promise.all(resoluciones.map(async p =>{
+			await Promise.all(resoluciones.map(async p => {
 				await reResolucion.delete(p);
 			}));
-			await rePromedio.delete({id_prom});
+			await rePromedio.delete({ id_prom });
 		}
 	}
 }

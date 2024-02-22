@@ -31,6 +31,15 @@ export class PromedioController {
 			next(error);
 		}
 	}
+	async leerPromediosGrafica(req: Request, res: Response, next: NextFunction){
+		try {
+			const { authorization } = req.headers as { authorization: string };
+			const datos = await service.leerPromediosGrafica(authorization);
+			res.json(datos);
+		} catch (error) {
+			next(error);
+		}
+	}
 	async eliminarElemento(req: Request, res: Response, next: NextFunction) {
 		try {
 			const { authorization } = req.headers as { authorization: string };

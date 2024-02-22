@@ -39,3 +39,10 @@ interface ResolucionesInterface extends AddResolucion{
 interface AddPromRes{
     resolucion:AddResolucion[]
 }
+
+
+interface ResultadosGrafica {
+    avo5: number,
+	fecha: string,
+	tipo:string;
+}

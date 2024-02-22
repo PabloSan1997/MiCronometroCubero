@@ -73,3 +73,9 @@ interface BoomErrorInterface {
 interface ResultadoElementInterface extends PromedioInterface{
     setIdProm(a:string):void
 }
+
+interface GraficaResultado{
+    avo5: number,
+	fecha: string,
+	tipo:string;
+}

@@ -17,3 +17,5 @@ promedioRouter.get('/last', controller.leerUltimoDato);
 promedioRouter.delete('/:id_prom',
 	joiHandle(idPromJoi, 'params'),
 	controller.eliminarElemento);
+
+promedioRouter.get('/plot', controller.leerPromediosGrafica);

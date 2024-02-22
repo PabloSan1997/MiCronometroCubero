@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import { myRutes } from "../Rutas";
 import { UseContexto } from "../Context";
+import { tiposCubos } from "../utilities/tipos";
 
 export function Header({ mostrar }: { mostrar: boolean }) {
     const [titulo, setTitulo] = React.useState('Mi cronometro');
@@ -41,8 +42,9 @@ export function Header({ mostrar }: { mostrar: boolean }) {
                         className="m-auto ml-5 bg-red-800 outline-none text-red-50 px-2 after:bg-red-500"
                         onChange={selecionarLado}
                     >
-                        <option value="2x2">2x2</option>
-                        <option value="3x3">3x3</option>
+                        {tiposCubos.map(p => (
+                            <option key={p} value={p}>{p}</option>
+                        ))}
                     </select>
                 )}
                 <div className="mr-5 ml-auto">

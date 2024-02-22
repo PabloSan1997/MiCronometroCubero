@@ -7,6 +7,8 @@ import React from "react";
 import { getSolves } from "../api/getSolves";
 import { Resultados } from "../components/Resultados";
 import { urlStorage } from "../storage/urlStorage";
+import { getPlotResults } from "../api/getPlotResults";
+import { Graficos } from "../components/Graficos";
 
 
 export function Solves() {
@@ -14,11 +16,15 @@ export function Solves() {
     const [promedios, setPromedios] = React.useState<PromedioInterface[]>([]);
     const [actualizarPromedio, setActualizarPromedio] = React.useState(false);
     const [id_prom, setIdProm] = React.useState('');
+    const [datosGrafica, setDatosGrafica] = React.useState<GraficaResultado[]>([]);
     React.useEffect(() => {
         urlStorage.setUrl(myRutes.solves);
         getSolves(permisos.token)
             .then(data => { setPromedios(data) })
             .catch(() => { setPromedios([]) });
+        getPlotResults(permisos.token)
+        .then(data => setDatosGrafica(data))
+        .catch(()=>setDatosGrafica([]))
     }, [actualizarPromedio]);
 
     React.useEffect(() => {
@@ -40,6 +46,7 @@ export function Solves() {
             {promedios.map(p => (
                 <Resultados key={p.id_prom} {...p} setIdProm={setIdProm}/>
             ))}
+            <Graficos resultados={datosGrafica}/>
         </>
     );
 }
